@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-public class Mark : MonoBehaviour {
-    public SpriteRenderer X;
-    public SpriteRenderer O;
+public class Mark : MonoBehaviour
+{
     public SpriteRenderer box;
 
     public static string sendInfo;
@@ -14,28 +13,23 @@ public class Mark : MonoBehaviour {
     {
         if(box.sprite == null)
         {
-            if (GameManager.round % 2 == 0)
+            if (GameManager.round % 2 == 0 && !Client.IsX)
             {
-                box.sprite = X.sprite;
-                Debug.Log("X");
-                GameManager.round++;
+                sendInfo = this.gameObject.name;
             }
-            else
+            else if (GameManager.round % 2 != 0 && Client.IsX)
             {
-                box.sprite = O.sprite;
-                Debug.Log("O");
-                GameManager.round++;
+                sendInfo = this.gameObject.name;
             }
-
-            sendInfo = this.gameObject.name;
         }
         else
         {
             Debug.Log("this slot is already Taken");
         }
-        
-        //else if(itsPlayer2)
-        //box.sprite = O.sprite;
-        //Debug.Log("O")
+
+        if (sendInfo != GameManager.tempSendInfo)
+        {
+            GameManager.tempSendInfo = sendInfo;
+        }
     }
 }

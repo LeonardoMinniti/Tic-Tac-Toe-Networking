@@ -13,9 +13,12 @@ public class Server : MonoBehaviour {
 
     public int port = 6321;
     private TcpListener server;
+    public static string tempData;
     public static bool serverStarted;
+    private bool stop = false;
+    private int count;
 
-    
+
     private void Update()
     {
         if (!serverStarted)
@@ -48,6 +51,35 @@ public class Server : MonoBehaviour {
             clients.Remove(disconnectList[i]);
             disconnectList.RemoveAt(i);
         }
+
+        if (serverStarted)
+        {
+            if(clients.Count >= 2 && count <= 2)
+            {
+                try
+                {
+                    StreamWriter writer = new StreamWriter(clients[0].tcp.GetStream());
+                    writer.WriteLine("&X");
+                    writer.Flush();
+                }
+                catch(Exception e)
+                {
+                    Debug.Log("Write error : " + e.Message + "to client ");
+                }
+
+                try
+                {
+                    StreamWriter writer1 = new StreamWriter(clients[1].tcp.GetStream());
+                    writer1.WriteLine("&O");
+                    writer1.Flush();
+                }
+                catch (Exception e)
+                {
+                    Debug.Log("Write error : " + e.Message + "to client ");
+                }
+                count++;
+            }
+        }
     }
 
     public void HostServer()
@@ -79,12 +111,8 @@ public class Server : MonoBehaviour {
             Broadcast(c.clientName + " has connected!", clients);
             return;
         }
-        if (data.Contains("&Mark"))
-        {
-            string tempData = data.Split('|')[1];
-            Debug.Log("Server hat es bekommmen " + tempData);
-        }
-        Broadcast(c.clientName + " : " + data,clients);
+
+        Broadcast(c.clientName + " : " + data, clients);
         Debug.Log(c.clientName + "has sent the following message : " + data);
     }
 

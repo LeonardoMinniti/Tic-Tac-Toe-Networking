@@ -4,16 +4,15 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
     public static int round;
-    private bool winner;
+    
     public SpriteRenderer[] tiles;
-    // Use this for initialization
-    void Start() {
-
-    }
+    private bool winner;
+    public static string tempSendInfo;
 
 
     // Update is called once per frame
-    void Update() {
+    void Update()
+    {
         if (!winner)
         {
             if (tiles[0].sprite == tiles[1].sprite && tiles[0].sprite == tiles[2].sprite && tiles[0].sprite != null)
