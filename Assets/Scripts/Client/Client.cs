@@ -118,11 +118,13 @@ public class Client : MonoBehaviour {
         {
             gameManagerScript.enabled = true;
             IsX = true;
+            Debug.Log("duas pessoas entraram!");
         }
         else if (data == "&O")
         {
             gameManagerScript.enabled = false;
             IsX = false;
+            Debug.Log("somente uma pessoa entrou");
 
         }
 
@@ -133,7 +135,15 @@ public class Client : MonoBehaviour {
         }
         else
         {
-            data = data.Split('|')[1];
+                data = data.Split('|')[1];
+        }
+        // In my Desktop Unity, the server wasnt closing after
+        // closing the game, i had always to close the whole Unity,
+        // now created a function to close server.
+        if (data.Contains("/closeserver"))
+        {
+            CloseSocket();
+            Debug.Log("closingsockets");
         }
 
 
