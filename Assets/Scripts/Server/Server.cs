@@ -15,6 +15,7 @@ public class Server : MonoBehaviour {
     private TcpListener server;
     public static string tempData;
     public static bool serverStarted;
+    public static bool isWaitingForSecondPlayer;
     private bool stop = false;
     private int count;
 
@@ -104,6 +105,15 @@ public class Server : MonoBehaviour {
 
     private void OnIncomingData(ServerClient c, string data)
     {
+        if(clients.Count <= 1)
+        {
+            isWaitingForSecondPlayer = true;
+        }
+        else
+        {
+            isWaitingForSecondPlayer = false;
+        }
+
         if (data.Contains("&NAME"))
         {
             c.clientName = data.Split('|')[1];

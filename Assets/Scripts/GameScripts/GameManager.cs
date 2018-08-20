@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour {
     public static int round;
     
     public SpriteRenderer[] tiles;
-    private bool winner;
+    public static bool winner;
     public static string tempSendInfo;
 
 

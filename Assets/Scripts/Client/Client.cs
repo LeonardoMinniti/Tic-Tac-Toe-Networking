@@ -13,6 +13,11 @@ public class Client : MonoBehaviour {
     public GameObject HostButton;
     public GameObject LoginPanel;
     public GameObject TicTacToe;
+    public GameObject Waiting;
+    public GameObject isPlayer1;
+    public GameObject isPlayer2;
+    public GameObject Player1Winner;
+    public GameObject Player2Winner;
     public int Rounds;
     public SpriteRenderer X;
     public SpriteRenderer O;
@@ -67,7 +72,6 @@ public class Client : MonoBehaviour {
             reader = new StreamReader(stream);
             socketReady = true;
             LoginPanel.SetActive(false);
-            TicTacToe.SetActive(true);
         }
         catch(Exception e)
         {
@@ -104,11 +108,45 @@ public class Client : MonoBehaviour {
         }
 
         GameManager.round = Rounds;
+
+        if (Rounds % 2 == 0)
+        {
+            isPlayer1.SetActive(false);
+            isPlayer2.SetActive(true);
+        }
+        else if(Rounds % 2 != 0 && Rounds != 0)
+        {
+            isPlayer1.SetActive(true);
+            isPlayer2.SetActive(false);
+        }
+        if (GameManager.winner)
+        {
+            TicTacToe.SetActive(false);
+
+            if (Rounds % 2 != 0)
+            {
+                Player1Winner.SetActive(true);
+            }
+            else
+            {
+                Player2Winner.SetActive(true);
+            }
+        }
     }
 
     private void OnIncomingData(string data)
     {
-        if(data == "%NAME")
+        if (Server.isWaitingForSecondPlayer)
+        {
+            Waiting.SetActive(true);
+            TicTacToe.SetActive(false);
+        }
+        else
+        {
+            Waiting.SetActive(false);
+            TicTacToe.SetActive(true);
+        }
+        if (data == "%NAME")
         {
             Send("&NAME|" + clientName);
             return;
@@ -118,13 +156,11 @@ public class Client : MonoBehaviour {
         {
             gameManagerScript.enabled = true;
             IsX = true;
-            Debug.Log("duas pessoas entraram!");
         }
         else if (data == "&O")
         {
             gameManagerScript.enabled = false;
             IsX = false;
-            Debug.Log("somente uma pessoa entrou");
 
         }
 
