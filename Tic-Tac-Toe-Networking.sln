@@ -1,7 +1,7 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tic-Tac-Toe-Networking", "Assembly-CSharp.csproj", "{EF26E3BD-57A2-486F-0866-84E5767C2966}"
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tic-Tac-Toe-Networking", "Tic-Tac-Toe-Networking.csproj", "{6F7F550F-D20A-3BCD-D14A-98AEB403F1A5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,15 +9,12 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{EF26E3BD-57A2-486F-0866-84E5767C2966}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EF26E3BD-57A2-486F-0866-84E5767C2966}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EF26E3BD-57A2-486F-0866-84E5767C2966}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EF26E3BD-57A2-486F-0866-84E5767C2966}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F7F550F-D20A-3BCD-D14A-98AEB403F1A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F7F550F-D20A-3BCD-D14A-98AEB403F1A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F7F550F-D20A-3BCD-D14A-98AEB403F1A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F7F550F-D20A-3BCD-D14A-98AEB403F1A5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = Assembly-CSharp.csproj
 	EndGlobalSection
 EndGlobal

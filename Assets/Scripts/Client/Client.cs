@@ -35,6 +35,7 @@ public class Client : MonoBehaviour {
     private StreamReader reader;
     private GameObject gameManager;
     private GameManager gameManagerScript;
+    private bool isGameTicTacToeActive;
 
 
     private void Start()
@@ -76,7 +77,7 @@ public class Client : MonoBehaviour {
         catch(Exception e)
         {
             LoginPanel.SetActive(true);
-            TicTacToe.SetActive(false);
+            //TicTacToe.SetActive(false);
             Debug.Log("Socket error: " + e.Message);
         }
     }
@@ -121,16 +122,21 @@ public class Client : MonoBehaviour {
         }
         if (GameManager.winner)
         {
-            TicTacToe.SetActive(false);
+            if (!isGameTicTacToeActive)
+            {
+                GameObject.Find("GameTicTacToe").SetActive(false);
+                if (Rounds % 2 != 0)
+                {
+                    Player1Winner.SetActive(true);
+                }
+                else
+                {
+                    Player2Winner.SetActive(true);
 
-            if (Rounds % 2 != 0)
-            {
-                Player1Winner.SetActive(true);
+                }
+                isGameTicTacToeActive = true;
             }
-            else
-            {
-                Player2Winner.SetActive(true);
-            }
+           
         }
     }
 
@@ -159,7 +165,7 @@ public class Client : MonoBehaviour {
         }
         else if (data == "&O")
         {
-            gameManagerScript.enabled = false;
+            //gameManagerScript.enabled = false;
             IsX = false;
 
         }
@@ -171,7 +177,10 @@ public class Client : MonoBehaviour {
         }
         else
         {
+            if (data != "&O" && data != "&X")
+            {
                 data = data.Split('|')[1];
+            }
         }
         // In my Desktop Unity, the server wasnt closing after
         // closing the game, i had always to close the whole Unity,
@@ -230,7 +239,7 @@ public class Client : MonoBehaviour {
             GameObject.Find(data).GetComponent<SpriteRenderer>().sprite = O.sprite;
             if (!IsX)
             {
-                gameManagerScript.enabled = false;
+                //gameManagerScript.enabled = false;
             }
             if (IsX)
             {
@@ -243,7 +252,7 @@ public class Client : MonoBehaviour {
             GameObject.Find(data).GetComponent<SpriteRenderer>().sprite = X.sprite;
             if (IsX)
             {
-                gameManagerScript.enabled = false;
+                //gameManagerScript.enabled = false;
             }
             if (!IsX)
             {
@@ -251,6 +260,18 @@ public class Client : MonoBehaviour {
             }
             Rounds++;
         }
+    }
+    public void Restart()
+    {
+        GameObject[] tiles = GameObject.FindGameObjectsWithTag("Tiles");
+
+        for (int i = 0; i < tiles.Length; i++)
+        {
+            SpriteRenderer tempTiles = tiles[i].GetComponent<SpriteRenderer>();
+            tempTiles = null;
+            
+        }
+        Rounds = 1;
     }
 
     private void Send(string data)

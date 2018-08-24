@@ -22,9 +22,20 @@ public class Server : MonoBehaviour {
 
     private void Update()
     {
+
         if (!serverStarted)
             return;
-        foreach(ServerClient c in clients)
+
+        if (clients.Count <= 1)
+        {
+            isWaitingForSecondPlayer = true;
+        }
+        else
+        {
+            isWaitingForSecondPlayer = false;
+        }
+
+        foreach (ServerClient c in clients)
         {
             if (!IsConnected(c.tcp))
             {
@@ -105,14 +116,6 @@ public class Server : MonoBehaviour {
 
     private void OnIncomingData(ServerClient c, string data)
     {
-        if(clients.Count <= 1)
-        {
-            isWaitingForSecondPlayer = true;
-        }
-        else
-        {
-            isWaitingForSecondPlayer = false;
-        }
 
         if (data.Contains("&NAME"))
         {

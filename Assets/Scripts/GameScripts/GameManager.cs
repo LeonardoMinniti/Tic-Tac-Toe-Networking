@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
     public static int round;
+    public GameObject TicTacToe;
     
     public SpriteRenderer[] tiles;
     public static bool winner;
