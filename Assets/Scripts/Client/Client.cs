@@ -18,9 +18,11 @@ public class Client : MonoBehaviour {
     public GameObject isPlayer2;
     public GameObject Player1Winner;
     public GameObject Player2Winner;
+    public GameObject DrawScreen;
     public int Rounds;
     public SpriteRenderer X;
     public SpriteRenderer O;
+    public SpriteRenderer Reset = null;
     public static bool IsX;
 
 
@@ -129,7 +131,7 @@ public class Client : MonoBehaviour {
                 {
                     Player1Winner.SetActive(true);
                 }
-                else
+                else if(Rounds % 2 == 0)
                 {
                     Player2Winner.SetActive(true);
 
@@ -137,6 +139,9 @@ public class Client : MonoBehaviour {
                 isGameTicTacToeActive = true;
             }
            
+        }else if(Rounds >= 9)
+        {
+            DrawScreen.SetActive(true);
         }
     }
 
@@ -261,18 +266,19 @@ public class Client : MonoBehaviour {
             Rounds++;
         }
     }
-    public void Restart()
+    public void Restart(string data)
     {
-        GameObject[] tiles = GameObject.FindGameObjectsWithTag("Tiles");
-
-        for (int i = 0; i < tiles.Length; i++)
+        for (int i = 0; i < 9; i++)
         {
-            SpriteRenderer tempTiles = tiles[i].GetComponent<SpriteRenderer>();
-            tempTiles = null;
-            
+            gameManagerScript.tiles[i].sprite = null;
         }
-        Rounds = 1;
+        Player1Winner.SetActive(false);
+        Player2Winner.SetActive(false);
+        DrawScreen.SetActive(false);
+        TicTacToe.SetActive(true);
+
     }
+        
 
     private void Send(string data)
     {

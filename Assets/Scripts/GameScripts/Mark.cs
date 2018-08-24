@@ -32,4 +32,13 @@ public class Mark : MonoBehaviour
             GameManager.tempSendInfo = sendInfo;
         }
     }
+
+    public void Retry()
+    {
+        if(box.sprite != null)
+        {
+            sendInfo = this.gameObject.name;
+            sendInfo = null;
+        }
+    }
 }

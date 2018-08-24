@@ -9,9 +9,9 @@ public class ButtonScripts : MonoBehaviour {
     {
         Application.Quit();
     }
-    public void Retry()
+    /*public void Retry()
     {
-        GameObject.Find("Server").GetComponent<Client>().Restart();
-        SceneManager.LoadScene("SampleScene");
-    }
+        GameObject.Find("Server").GetComponent<Client>().Restart);
+        //SceneManager.LoadScene("SampleScene");
+    }*/
 }
