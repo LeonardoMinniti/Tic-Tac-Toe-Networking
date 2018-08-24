@@ -275,7 +275,10 @@ public class Client : MonoBehaviour {
         Player1Winner.SetActive(false);
         Player2Winner.SetActive(false);
         DrawScreen.SetActive(false);
+        Rounds = 1;
         TicTacToe.SetActive(true);
+        
+        //GameObject.Find("GameTicTacToe").SetActive(true);
 
     }
         
